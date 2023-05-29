@@ -10,6 +10,12 @@ export default function Home() {
   const [isConfettiEnabled, setIsConfettiEnabled] = useState(false)
   const [windowSize, setWindowSize] = useState([0, 0])
 
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', () => {
+      setWindowSize([window.innerWidth, window.innerHeight])
+    })
+  }
+
   const handleChangeGoalTime = () => {
     const promptedGoalTime = prompt('목표 시간을 입력해주세요 (hh:mm:ss)')
     const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/
@@ -45,8 +51,7 @@ export default function Home() {
     <div
       className='flex items-center justify-center w-[100vw]'
       style={{
-        height:
-          typeof window !== 'undefined' ? window.innerHeight + 'px' : '1080px',
+        height: typeof window !== 'undefined' ? windowSize[1] + 'px' : '1080px',
       }}
     >
       <Confetti
