@@ -16,8 +16,6 @@ export default function Home() {
   }
 
   const handleTimerClick = () => {
-    console.log(intervalId)
-
     if (!isTimerRunning) {
       setIntervalId(
         setInterval(() => {
