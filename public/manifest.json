@@ -3,7 +3,9 @@
   "name": "Studytime", 
   "short_name": "Studytime", 
   "start_url": "https://studytime-zeta.vercel.app", 
-  "display": "standalone", 
+  "scope": "https://studytime-zeta.vercel.app",
+  "display": "standalone",
+  "orientation": "landscape",
   "icons": [{ 
     "src": "/favicon.png", 
     "sizes": "512x512", 

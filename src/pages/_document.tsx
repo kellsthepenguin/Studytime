@@ -11,6 +11,10 @@ export default function Document() {
         />
         <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
         <link rel='manifest' href='/manifest.json' />
+        <meta
+          name='apple-mobile-web-app-status-bar-style'
+          content='black-translucent'
+        ></meta>
       </Head>
       <body>
         <Main />
