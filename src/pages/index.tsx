@@ -1,11 +1,14 @@
 import { convertSecondsToTimeString, convertTimeStringToSeconds } from '@/util'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Confetti from 'react-confetti'
 
 export default function Home() {
   const [currentSeconds, setCurrentSeconds] = useState(0)
   const [goalSeconds, setGoalSeconds] = useState(0)
   const [isTimerRunning, setIsTimerRunning] = useState(false)
   const [intervalId, setIntervalId] = useState(0)
+  const [isConfettiEnabled, setIsConfettiEnabled] = useState(false)
+  const [windowSize, setWindowSize] = useState([0, 0])
 
   const handleChangeGoalTime = () => {
     const promptedGoalTime = prompt('목표 시간을 입력해주세요 (hh:mm:ss)')
@@ -30,13 +33,28 @@ export default function Home() {
     setIsTimerRunning(false)
   }
 
+  useEffect(() => {
+    if (currentSeconds !== 0 && currentSeconds == goalSeconds) {
+      setWindowSize([window.innerWidth, window.innerHeight])
+      setIsConfettiEnabled(true)
+      setTimeout(() => setIsConfettiEnabled(false), 5500)
+    }
+  }, [currentSeconds])
+
   return (
     <div className='flex items-center justify-center w-[100vw] h-[100vh]'>
+      <Confetti
+        width={windowSize[0]}
+        height={windowSize[1]}
+        style={{
+          display: isConfettiEnabled ? '' : 'none',
+        }}
+      />
       <p className='absolute top-5 left-5 text-2xl font-semibold'>Studytime</p>
       <div className='text-center'>
         <div className='text-left'>
           <p
-            className='font-bold text-9xl cursor-default'
+            className='font-bold text-9xl cursor-default w-[578px]'
             onClick={handleTimerClick}
           >
             {convertSecondsToTimeString(currentSeconds)}
