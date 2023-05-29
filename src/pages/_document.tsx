@@ -9,6 +9,7 @@ export default function Document() {
           as='style'
           href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
         />
+        <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
       </Head>
       <body>
         <Main />
