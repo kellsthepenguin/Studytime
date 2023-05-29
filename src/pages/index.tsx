@@ -42,7 +42,13 @@ export default function Home() {
   }, [currentSeconds])
 
   return (
-    <div className='flex items-center justify-center w-[100vw] h-[100vh]'>
+    <div
+      className='flex items-center justify-center w-[100vw]'
+      style={{
+        height:
+          typeof window !== 'undefined' ? window.innerHeight + 'px' : '1080px',
+      }}
+    >
       <Confetti
         width={windowSize[0]}
         height={windowSize[1]}
