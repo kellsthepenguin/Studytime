@@ -16,15 +16,41 @@ export default function Home() {
     })
   }
 
+  useEffect(() => {
+    const date = new Date(parseInt(localStorage.getItem('lastTimerRunned')!))
+
+    setGoalSeconds(
+      localStorage.getItem('goalSeconds')
+        ? parseInt(localStorage.getItem('goalSeconds')!)
+        : 0
+    )
+
+    if (date.getDay() !== new Date().getDay()) {
+      localStorage.setItem('currentSeconds', '0')
+    }
+    setCurrentSeconds(
+      localStorage.getItem('currentSeconds')
+        ? parseInt(localStorage.getItem('currentSeconds')!)
+        : 0
+    )
+  }, [])
+
   const handleChangeGoalTime = () => {
     const promptedGoalTime = prompt('목표 시간을 입력해주세요 (hh:mm:ss)')
     const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/
 
-    if (timeRegex.test(promptedGoalTime!))
-      setGoalSeconds(convertTimeStringToSeconds(promptedGoalTime!))
+    if (timeRegex.test(promptedGoalTime!)) {
+      const promptedGoalTimeSeconds = convertTimeStringToSeconds(
+        promptedGoalTime!
+      )
+      localStorage.setItem('goalSeconds', promptedGoalTimeSeconds.toString())
+      setGoalSeconds(promptedGoalTimeSeconds)
+    }
   }
 
   const handleTimerClick = () => {
+    localStorage.setItem('lastTimerRunned', Date.now().toString())
+
     if (!isTimerRunning) {
       setIntervalId(
         setInterval(() => {
@@ -40,6 +66,9 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if (currentSeconds !== 0)
+      localStorage.setItem('currentSeconds', currentSeconds.toString())
+
     if (currentSeconds !== 0 && currentSeconds == goalSeconds) {
       setWindowSize([window.innerWidth, window.innerHeight])
       setIsConfettiEnabled(true)
