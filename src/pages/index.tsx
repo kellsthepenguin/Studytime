@@ -51,7 +51,7 @@ export default function Home() {
     <div
       className='flex items-center justify-center w-[100vw]'
       style={{
-        height: typeof window !== 'undefined' ? windowSize[1] + 'px' : '1080px',
+        height: typeof window !== 'undefined' ? windowSize[1] + 'px' : '100vh',
       }}
     >
       <Confetti
